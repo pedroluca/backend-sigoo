@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import Atividade
 from .serializers import AtividadeSerializer
-from .permissions import IsTipo1
+from api_rest.permissions import IsTipo1
 
 class AtividadeList(generics.ListCreateAPIView):
   queryset = Atividade.objects.all()
