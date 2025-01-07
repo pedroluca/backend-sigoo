@@ -26,7 +26,7 @@ class AtividadeUpdate(generics.UpdateAPIView):
   queryset = Atividade.objects.all()
   serializer_class = AtividadeSerializer
   lookup_field = 'pk'
-  permission_classes = [IsAuthenticated, IsTipo1]
+  permission_classes = [IsAuthenticated]
 
 class AtividadeDelete(generics.DestroyAPIView):
   queryset = Atividade.objects.all()

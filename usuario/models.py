@@ -25,7 +25,6 @@ class UsuarioManager(BaseUserManager):
 
         return self.create_user(username, email, password, **extra_fields)
 
-
 class Usuario(AbstractBaseUser, PermissionsMixin):
     ID = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, default='')
@@ -35,6 +34,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     matricula = models.CharField(max_length=20, unique=True, default='', blank=True)
     Usuario_TIPO = models.IntegerField(default=0)
     area_interesse = models.ManyToManyField('area_interesse.AreaInteresse')
+    quantidade_orientandos = models.IntegerField(default=0)  # Novo campo adicionado
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
