@@ -7,4 +7,5 @@ urlpatterns = [
   path('<int:pk>/', views.OrientacaoDetail.as_view(), name='orientacao_detail'),
   path('update/<int:pk>/', views.OrientacaoUpdate.as_view(), name='orientacao_update'),
   path('delete/<int:pk>/', views.OrientacaoDelete.as_view(), name='orientacao_delete'),
+  path('add-with-emails/', views.OrientacaoCreateWithEmails.as_view(), name='orientacao_add_with_emails'),
 ]

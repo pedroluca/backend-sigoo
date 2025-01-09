@@ -53,7 +53,10 @@ class GetAlunoOrientacao(APIView):
     def get(self, request, id_aluno):
         try:
             orientacao = Orientacao.objects.get(fk_Usuario_ID_Aluno=id_aluno)
-            return Response({'orientacao_id': orientacao.ID}, status=status.HTTP_200_OK)
+            return Response({
+                'orientacao_id': orientacao.ID,
+                'professor_id': orientacao.fk_Usuario_ID_Professor.ID
+            }, status=status.HTTP_200_OK)
         except Orientacao.DoesNotExist:
             return Response({'error': 'Orientação não encontrada'}, status=status.HTTP_404_NOT_FOUND)
 
