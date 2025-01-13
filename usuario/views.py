@@ -29,6 +29,7 @@ class UsuarioCreate(APIView):
                 matricula=serializer.validated_data.get('matricula', ''),
                 Usuario_TIPO=serializer.validated_data['Usuario_TIPO'],
                 quantidade_orientandos=serializer.validated_data.get('quantidade_orientandos', 0),
+                tema=serializer.validated_data.get('tema', '')
             )
             user.area_interesse.set(serializer.validated_data.get('area_interesse', []))
             return Response({'message': 'Usuário criado com sucesso!'}, status=status.HTTP_201_CREATED)

@@ -34,7 +34,8 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     matricula = models.CharField(max_length=20, unique=True, default='', blank=True)
     Usuario_TIPO = models.IntegerField(default=0)
     area_interesse = models.ManyToManyField('area_interesse.AreaInteresse')
-    quantidade_orientandos = models.IntegerField(default=0)  # Novo campo adicionado
+    quantidade_orientandos = models.IntegerField(default=0)
+    tema = models.CharField(max_length=150, default='', blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

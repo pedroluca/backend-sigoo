@@ -48,5 +48,7 @@ class UsuarioUpdateSerializer(serializers.ModelSerializer):
           instance.area_interesse.set(validated_data['area_interesse'])
       if 'quantidade_orientandos' in validated_data:
           instance.quantidade_orientandos = validated_data.get('quantidade_orientandos', instance.quantidade_orientandos)
+      if 'tema' in validated_data:
+          instance.tema = validated_data.get('tema', instance.tema)
       instance.save()
       return instance
