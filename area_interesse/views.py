@@ -13,7 +13,7 @@ class AreaInteresseCreate(generics.CreateAPIView):
   queryset = AreaInteresse.objects.all()
   serializer_class = AreaInteresseSerializer
   lookup_field = 'pk'
-  permission_classes = [IsTipo1]
+  permission_classes = [AllowAny]
 
 class AreaInteresseDetail(generics.RetrieveAPIView):
   queryset = AreaInteresse.objects.all()
