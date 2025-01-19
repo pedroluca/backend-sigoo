@@ -7,4 +7,5 @@ urlpatterns = [
   path('<int:pk>/', views.AreaInteresseDetail.as_view(), name='area_detail'),
   path('update/<int:pk>/', views.AreaInteresseUpdate.as_view(), name='area_update'),
   path('delete/<int:pk>/', views.AreaInteresseDelete.as_view(), name='area_delete'),
+  path('add-areas-interesse/', views.AdicionarAreasView.as_view(), name='adicionar_areas'),
 ]
