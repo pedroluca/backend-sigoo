@@ -21,7 +21,7 @@ class OrientacaoCreateWithEmailsSerializer(serializers.Serializer):
             aluno = Usuario.objects.get(email=email_aluno)
             professor = Usuario.objects.get(email=email_professor)
         except Usuario.DoesNotExist:
-            raise serializers.ValidationError("Usuário não encontrado com o email fornecido.")
+            raise serializers.ValidationError("Aluno não encontrado com o email fornecido.")
 
         orientacao = Orientacao.objects.create(
             fk_Usuario_ID_Aluno=aluno,
