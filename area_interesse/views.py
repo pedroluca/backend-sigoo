@@ -15,6 +15,10 @@ class AreaInteresseCreate(generics.CreateAPIView):
   lookup_field = 'pk'
   permission_classes = [AllowAny]
 
+  def perform_create(self, serializer):
+    print("Dados recebidos:", self.request.data)  # Para debug
+    serializer.save()
+
 class AreaInteresseDetail(generics.RetrieveAPIView):
   queryset = AreaInteresse.objects.all()
   serializer_class = AreaInteresseSerializer
