@@ -10,7 +10,7 @@ class OrientacaoSerializer(serializers.ModelSerializer):
 class OrientacaoCreateWithEmailsSerializer(serializers.Serializer):
     email_aluno = serializers.EmailField()
     email_professor = serializers.EmailField()
-    solicitacaoAceita = serializers.BooleanField(default=False)
+    solicitacaoAceita = serializers.BooleanField(default=True)
 
     def create(self, validated_data):
         email_aluno = validated_data.get('email_aluno')
