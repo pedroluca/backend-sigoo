@@ -24,7 +24,7 @@ areas_de_interesse = [
 ]
 
 # URL do endpoint
-url = "https://backend-sigoo.render.com/api/area-interesse/add/"
+url = "https://backend-sigoo.onrender.com/api/area-interesse/add/"
 
 # Função para enviar o POST para o backend
 def adicionar_area_de_interesse(nome):
