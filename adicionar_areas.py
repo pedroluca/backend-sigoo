@@ -35,7 +35,7 @@ def adicionar_area_de_interesse(nome):
     response = requests.post(url, json=body)
     
     # Verificando se a requisição foi bem-sucedida
-    if response.status_code == 200:
+    if response.status_code == 201:
         print(f"Área de interesse '{nome}' adicionada com sucesso!")
     else:
         print(f"Erro ao adicionar a área de interesse '{nome}'. Status Code: {response.status_code}")
