@@ -1,23 +1,45 @@
-import os
-import django
+import requests
 
-# Definindo as configurações do Django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "seu_projeto.settings")
-django.setup()
-
-from area_interesse.models import AreaInteresse
-
-areas = [
-    'Teste de software', 'Redes de Computadores', 'Agricultura Digital',
-    'Algoritmos', 'Análise e Projeto de Sistemas', 'Aprendizado de Máquina',
-    'Avaliação de Desempenho de Sistemas', 'Banco de Dados', 'Desenvolvimento para Dispositivos Móveis',
-    'Desenvolvimento Multiplataforma', 'Desenvolvimento Web', 'DevOps', 'E-Learning',
-    'Engenharia de Software', 'Estatística', 'Estrutura de Dados', 'Gestão de Tecnologia da Informação',
-    'Inclusão Digital'
+# Lista das áreas de interesse
+areas_de_interesse = [
+    "Teste de software",
+    "Redes de Computadores",
+    "Agricultura Digital",
+    "Algoritmos",
+    "Análise e Projeto de Sistemas",
+    "Aprendizado de Máquina",
+    "Avaliação de Desempenho de Sistemas",
+    "Banco de Dados",
+    "Desenvolvimento para Dispositivos Móveis",
+    "Desenvolvimento Multiplataforma",
+    "Desenvolvimento Web",
+    "DevOps",
+    "E-Learning",
+    "Engenharia de Software",
+    "Estatística",
+    "Estrutura de Dados",
+    "Gestão de Tecnologia da Informação",
+    "Inclusão Digital",
+    # Você pode adicionar mais áreas aqui conforme necessário
 ]
 
-for nome in areas:
-    if not AreaInteresse.objects.filter(nome=nome).exists():  # Verifica se já existe
-        AreaInteresse.objects.create(nome=nome)
+# URL do endpoint
+url = "https://backend-sigoo.onrender.com/api/area-interesse/add/"
+
+# Função para enviar o POST para o backend
+def adicionar_area_de_interesse(nome):
+    # Corpo da requisição com o nome da área de interesse
+    body = {"nome": nome}
+    
+    # Enviando a requisição POST
+    response = requests.post(url, json=body)
+    
+    # Verificando se a requisição foi bem-sucedida
+    if response.status_code == 201:
+        print(f"Área de interesse '{nome}' adicionada com sucesso!")
     else:
-        print(f"A área '{nome}' já existe.")
+        print(f"Erro ao adicionar a área de interesse '{nome}'. Status Code: {response.status_code}")
+
+# Loop para adicionar todas as áreas de interesse
+for area in areas_de_interesse:
+    adicionar_area_de_interesse(area)
