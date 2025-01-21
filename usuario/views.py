@@ -5,6 +5,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Usuario
 from .serializers import UsuarioSerializer, UsuarioUpdateSerializer
 from orientacao.models import Orientacao
+from django.db.utils import IntegrityError
 
 class ValidUser(APIView):
     def get(self, request):
@@ -21,18 +22,26 @@ class UsuarioCreate(APIView):
     def post(self, request):
         serializer = UsuarioSerializer(data=request.data)
         if serializer.is_valid():
-            user = Usuario.objects.create_user(  # Use o método `create_user`
-                username=serializer.validated_data['username'],
-                email=serializer.validated_data.get('email', ''),
-                password=serializer.validated_data['password'],
-                nome=serializer.validated_data.get('nome', ''),
-                matricula=serializer.validated_data.get('matricula', ''),
-                Usuario_TIPO=serializer.validated_data['Usuario_TIPO'],
-                quantidade_orientandos=serializer.validated_data.get('quantidade_orientandos', 0),
-                tema=serializer.validated_data.get('tema', '')
-            )
-            user.area_interesse.set(serializer.validated_data.get('area_interesse', []))
-            return Response({'message': 'Usuário criado com sucesso!'}, status=status.HTTP_201_CREATED)
+            try:
+                user = Usuario.objects.create_user(
+                    username=serializer.validated_data['username'],
+                    email=serializer.validated_data.get('email', ''),
+                    password=serializer.validated_data['password'],
+                    nome=serializer.validated_data.get('nome', ''),
+                    matricula=serializer.validated_data.get('matricula', ''),
+                    Usuario_TIPO=serializer.validated_data['Usuario_TIPO'],
+                    quantidade_orientandos=serializer.validated_data.get('quantidade_orientandos', 0),
+                    tema=serializer.validated_data.get('tema', '')
+                )
+                user.area_interesse.set(serializer.validated_data.get('area_interesse', []))
+                return Response({'message': 'Usuário criado com sucesso!'}, status=status.HTTP_201_CREATED)
+            except IntegrityError as e:
+                if 'username' in str(e):
+                    return Response({'error': 'Já existe um usuário com este nome de usuário.'}, status=status.HTTP_400_BAD_REQUEST)
+                if 'email' in str(e):
+                    return Response({'error': 'Já existe um usuário com este email.'}, status=status.HTTP_400_BAD_REQUEST)
+                if 'matricula' in str(e):
+                    return Response({'error': 'Já existe um usuário com esta matrícula.'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UsuarioDetail(generics.RetrieveAPIView):
