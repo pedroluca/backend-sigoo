@@ -58,20 +58,27 @@ class UsuarioUpdateSerializer(serializers.ModelSerializer):
                 instance.matricula = validated_data.get('matricula', instance.matricula)
             if 'Usuario_TIPO' in validated_data:
                 instance.Usuario_TIPO = validated_data.get('Usuario_TIPO', instance.Usuario_TIPO)
-            if 'password' in validated_data:
-                instance.set_password(validated_data['password'])
             if 'area_interesse' in validated_data:
                 instance.area_interesse.set(validated_data['area_interesse'])
             if 'quantidade_orientandos' in validated_data:
                 instance.quantidade_orientandos = validated_data.get('quantidade_orientandos', instance.quantidade_orientandos)
             if 'tema' in validated_data:
                 instance.tema = validated_data.get('tema', instance.tema)
-            if 'password' in validated_data:
-                if Usuario.objects.filter(instance=instance).exists():
-                    print(instance.password)
-                    if instance.password != validated_data['password']:
-                        instance.set_password(validated_data['password'])
-                    else:
-                        raise serializers.ValidationError("A nova senha não pode ser igual a anterior.")
             instance.save()
             return instance
+        
+class PasswordUpdateSerializer(serializers.Serializer):
+    old_password = serializers.CharField(write_only=True, required=True)
+    new_password = serializers.CharField(write_only=True, required=True)
+
+    def validate_new_password(self, value):
+        if self.instance.check_password(value):
+            raise serializers.ValidationError("A nova senha não pode ser igual à senha anterior.")
+        return value
+
+    def update(self, instance, validated_data):
+        if not instance.check_password(validated_data['old_password']):
+            raise serializers.ValidationError({"old_password": "Senha antiga incorreta."})
+        instance.set_password(validated_data['new_password'])
+        instance.save()
+        return instance

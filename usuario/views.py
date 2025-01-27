@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Usuario
-from .serializers import UsuarioSerializer, UsuarioUpdateSerializer
+from .serializers import UsuarioSerializer, UsuarioUpdateSerializer, PasswordUpdateSerializer
 from orientacao.models import Orientacao
 from django.db.utils import IntegrityError
 
@@ -74,3 +74,11 @@ class GetProfessorOrientacoes(APIView):
     def get(self, request):
         orientacoes = Orientacao.objects.filter(fk_Usuario_ID_Professor=request.user.ID).values_list('ID', flat=True)
         return Response({'orientacoes_ids': list(orientacoes)}, status=status.HTTP_200_OK)
+
+class PasswordUpdateView(APIView):
+    def put(self, request, *args, **kwargs):
+        serializer = PasswordUpdateSerializer(instance=request.user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Senha atualizada com sucesso!'}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

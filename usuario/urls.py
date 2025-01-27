@@ -12,4 +12,5 @@ urlpatterns = [
     path('delete/<int:pk>/', views.UsuarioDelete.as_view(), name='usuario_delete'),
     path('get-aluno-orientacao/<int:id_aluno>/', views.GetAlunoOrientacao.as_view(), name='get_aluno_orientacao'),
     path('get-professor-orientacoes/', views.GetProfessorOrientacoes.as_view(), name='get_professor_orientacoes'),
+    path('update-password/', views.PasswordUpdateView.as_view(), name='update_password'),
 ]

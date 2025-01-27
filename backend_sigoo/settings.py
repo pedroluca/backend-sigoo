@@ -156,6 +156,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_ORIGINS = [
-  'http://localhost:5173',
+  'http://localhost:5173/',
   'https://frontend-sigoo.vercel.app'
 ]
