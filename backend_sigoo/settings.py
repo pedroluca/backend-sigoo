@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-*0bh^@4r#78trb+gmiykwel5ulzfgh#4!#r#7ulu(#4wde235#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['backend-sigoo.netlify.app']
+ALLOWED_HOSTS = ['https://backend-sigoo.netlify.app']
 
 
 # Application definition
