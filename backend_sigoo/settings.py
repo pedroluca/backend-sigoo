@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-*0bh^@4r#78trb+gmiykwel5ulzfgh#4!#r#7ulu(#4wde235#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['api-sigoo.tech']
+ALLOWED_HOSTS = ['https://api-sigoo.tech/']
 
 
 # Application definition
@@ -136,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
